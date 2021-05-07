@@ -1,4 +1,5 @@
 ﻿using System;
+using BlockchainLogic;
 
 namespace CLIInterface
 {
@@ -6,7 +7,33 @@ namespace CLIInterface
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            // Create new transaction
+            var trx1 = new Transaction
+            {
+                TimeStamp = DateTime.Now.Ticks,
+                Sender = "Bob",
+                Recipient = "Billy",
+                Amount = 10,
+                Fee = 0.01
+            };
+            
+            var trx2 = new Transaction
+            {
+                TimeStamp = DateTime.Now.Ticks,
+                Sender = "John",
+                Recipient = "Ivanka",
+                Amount = 20,
+                Fee = 0.01
+            };
+
+            var trx3 = new Transaction
+            {
+                TimeStamp = DateTime.Now.Ticks,
+                Sender = "Robert",
+                Recipient = "Antonio",
+                Amount = 30,
+                Fee = 0.01
+            };
         }
     }
 }
