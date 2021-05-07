@@ -55,6 +55,7 @@ namespace BlockchainLogic
         {
             var sha = SHA256.Create();
             byte[] timeStamp = BitConverter.GetBytes(TimeStamp);
+            return null;
         }
 
         #endregion
