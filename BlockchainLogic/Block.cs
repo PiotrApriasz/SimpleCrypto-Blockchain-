@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Security.Cryptography;
 
 namespace BlockchainLogic
 {
@@ -30,6 +32,30 @@ namespace BlockchainLogic
         /// Creator of block identified by the public key
         /// </summary>
         public string Creator { get; set; }
+
+        #endregion
+
+        #region Constructor
+
+        public Block(int height, byte[] prevHash, List<Transaction> transactions, string creator)
+        {
+            Height = height;
+            PrevHash = prevHash;
+            TimeStamp = DateTime.Now.Ticks;
+            Transactions = transactions.ToArray();
+            Hash = GenerateHash();
+            Creator = creator;
+        }
+
+        #endregion
+
+        #region Methods
+
+        private byte[] GenerateHash()
+        {
+            var sha = SHA256.Create();
+            byte[] timeStamp = BitConverter.GetBytes(TimeStamp);
+        }
 
         #endregion
     }
