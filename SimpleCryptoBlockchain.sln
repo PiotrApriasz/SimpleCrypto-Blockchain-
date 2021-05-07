@@ -4,8 +4,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockchainLogic", "Blockcha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CLIInterface", "CLIInterface\CLIInterface.csproj", "{87523D05-8643-45DF-9B41-00A571283A61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "Utils\Utils.csproj", "{831B230D-4ACC-4EDB-8832-6BA01EB5B8FE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,9 +18,5 @@ Global
 		{87523D05-8643-45DF-9B41-00A571283A61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87523D05-8643-45DF-9B41-00A571283A61}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87523D05-8643-45DF-9B41-00A571283A61}.Release|Any CPU.Build.0 = Release|Any CPU
-		{831B230D-4ACC-4EDB-8832-6BA01EB5B8FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{831B230D-4ACC-4EDB-8832-6BA01EB5B8FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{831B230D-4ACC-4EDB-8832-6BA01EB5B8FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{831B230D-4ACC-4EDB-8832-6BA01EB5B8FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

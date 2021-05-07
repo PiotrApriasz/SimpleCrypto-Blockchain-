@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using BlockchainLogic.Utils;
 
 namespace BlockchainLogic
 {
@@ -55,6 +56,7 @@ namespace BlockchainLogic
         {
             var sha = SHA256.Create();
             byte[] timeStamp = BitConverter.GetBytes(TimeStamp);
+            var transactionHash = Transactions.ConvertToByte();
             return null;
         }
 

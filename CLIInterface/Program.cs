@@ -1,5 +1,6 @@
 ﻿using System;
 using BlockchainLogic;
+using Utils;
 
 namespace CLIInterface
 {

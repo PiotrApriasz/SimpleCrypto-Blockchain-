@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Text;
-using BlockchainLogic;
 using Newtonsoft.Json;
 
-namespace Utils
+namespace BlockchainLogic.Utils
 {
     public static class Converter
     {
