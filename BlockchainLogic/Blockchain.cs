@@ -99,7 +99,7 @@ namespace BlockchainLogic
         /// Get transaction by name
         /// </summary>
         /// <param name="name">Sender or recipient name</param>
-        internal void PrintTransactionHistory(string name)
+        public void PrintTransactionHistory(string name)
         {
             Console.WriteLine($"\n\n===== Transaction history for {name} =====");
 
@@ -197,12 +197,12 @@ namespace BlockchainLogic
         
         private void PrintBlock(Block block)
         {
-            Console.WriteLine($"Height      :{block.Height}");
-            Console.WriteLine($"Timestamp   :{block.TimeStamp.ConvertToDateTime()}");
-            Console.WriteLine($"Prev. Hash  :{block.PrevHash.ConvertToHexString()}");
-            Console.WriteLine($"Hash        :{block.Hash.ConvertToHexString()}");
+            Console.WriteLine($"Height       :{block.Height}");
+            Console.WriteLine($"Timestamp    :{block.TimeStamp.ConvertToDateTime()}");
+            Console.WriteLine($"Prev. Hash   :{block.PrevHash.ConvertToHexString()}");
+            Console.WriteLine($"Hash         :{block.Hash.ConvertToHexString()}");
             Console.WriteLine($"Transactions :{block.Transactions.ConvertToString()}");
-            Console.WriteLine($"Creator     :{block.Creator}");
+            Console.WriteLine($"Creator      :{block.Creator}");
             Console.WriteLine("--------------");
         }
 

@@ -68,8 +68,6 @@ namespace BlockchainLogic
             Buffer.BlockCopy(transactionHash, 0, headerBytes, timeStamp.Length
                                                                     + PrevHash.Length, transactionHash.Length);
 
-            Console.WriteLine(headerBytes);
-
             byte[] hash = sha.ComputeHash(headerBytes);
             
             return hash;
