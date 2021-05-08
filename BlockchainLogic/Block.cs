@@ -52,12 +52,27 @@ namespace BlockchainLogic
 
         #region Methods
 
-        private byte[] GenerateHash()
+        /// <summary>
+        /// Generate hash of current block
+        /// </summary>
+        /// <returns></returns>
+        public byte[] GenerateHash()
         {
             var sha = SHA256.Create();
             byte[] timeStamp = BitConverter.GetBytes(TimeStamp);
             var transactionHash = Transactions.ConvertToByte();
-            return null;
+            byte[] headerBytes = new byte[timeStamp.Length + PrevHash.Length + transactionHash.Length];
+            
+            Buffer.BlockCopy(timeStamp, 0, headerBytes, 0, timeStamp.Length);
+            Buffer.BlockCopy(PrevHash, 0, headerBytes, timeStamp.Length, PrevHash.Length);
+            Buffer.BlockCopy(transactionHash, 0, headerBytes, timeStamp.Length
+                                                                    + PrevHash.Length, transactionHash.Length);
+
+            Console.WriteLine(headerBytes);
+
+            byte[] hash = sha.ComputeHash(headerBytes);
+            
+            return hash;
         }
 
         #endregion

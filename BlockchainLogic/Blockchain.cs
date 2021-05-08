@@ -4,10 +4,19 @@ namespace BlockchainLogic
 {
     public class Blockchain
     {
+        #region Properties
+
         /// <summary>
         /// Transaction pool
         /// </summary>
         public List<Transaction> TransactionPool { get; set; }
+
+        /// <summary>
+        /// Simulating database to hold blocks in blockchain
+        /// </summary>
+        public IList<Block> Blocks { get; set; }
+        
+        #endregion
 
         public Blockchain()
         {
