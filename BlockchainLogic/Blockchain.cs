@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using BlockchainLogic.Utils;
+using DataBaseManager;
 using LiteDB;
 using Newtonsoft.Json;
 
@@ -21,11 +22,11 @@ namespace BlockchainLogic
         #region Methods
 
         /// <summary>
-        /// Create genesis bolock adn transaction for the genesis account. 
+        /// Create genesis block adn transaction for the genesis account. 
         /// </summary>
         private static void Initialize()
         {
-            var blocks = 
+            var blocks = DbAccess.GetEntries<Block>(Tables.tbl_blocks);
 
             if (blocks.Count() < 1)
             {

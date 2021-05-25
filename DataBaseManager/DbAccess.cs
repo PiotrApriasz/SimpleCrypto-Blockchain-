@@ -25,6 +25,52 @@ namespace DataBaseManager
         }
 
         /// <summary>
+        /// Returns all data from selected table
+        /// </summary>
+        /// <param name="tableName">Selected table</param>
+        /// <typeparam name="T">Type of data in selected table</typeparam>
+        /// <returns></returns>
+        public static ILiteCollection<T> GetEntries<T>(Tables tableName)
+        {
+            var coll = Db.GetCollection<T>(tableName.ToString());
+            return coll;
+        }
+
+        /// <summary>
+        /// Get first entry from data base, for example genesis block
+        /// </summary>
+        /// <param name="tableName">Selected table</param>
+        /// <typeparam name="T">Type of data in selected table</typeparam>
+        /// <returns></returns>
+        public static T GetFirstEntry<T>(Tables tableName)
+        {
+            var entries = GetEntries<T>(tableName);
+            var entry = entries.FindOne(Query.All(Query.Ascending));
+
+            return entry;
+        }
+
+        /// <summary>
+        /// Get last entry from data base, for example last block
+        /// </summary>
+        /// <param name="tableName">Selected table</param>
+        /// <typeparam name="T">Type of data in selected table</typeparam>
+        /// <returns></returns>
+        public static T GetLastEntry<T>(Tables tableName)
+        {
+            var entries = GetEntries<T>(tableName);
+            var entry = entries.FindOne(Query.All(Query.Descending));
+
+            return entry;
+        }
+
+        public static void AddEntry<T>(T element, Tables tableName)
+        {
+            var entries = GetEntries<T>(tableName);
+            entries.Insert(element);
+        }
+
+        /// <summary>
         /// Close data base when app closed
         /// </summary>
         public static void CloseDb()
