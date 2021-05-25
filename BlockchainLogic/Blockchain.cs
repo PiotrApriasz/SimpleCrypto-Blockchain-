@@ -2,40 +2,82 @@
 using System.Collections.Generic;
 using System.Threading;
 using BlockchainLogic.Utils;
+using LiteDB;
+using Newtonsoft.Json;
 
 namespace BlockchainLogic
 {
     public class Blockchain
     {
-        #region Properties
-
-        /// <summary>
-        /// Transaction pool
-        /// </summary>
-        public List<Transaction> TransactionPool { get; set; }
-
-        /// <summary>
-        /// Simulating database to hold blocks in blockchain
-        /// </summary>
-        public IList<Block> Blocks { get; set; }
-        
-        #endregion
-
         #region Constructor
 
         public Blockchain()
         {
-            TransactionPool = new List<Transaction>();
-
-            Blocks = new List<Block>
-            {
-                CreateGenesisBlock()
-            };
+            Initialize();
         }
 
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Create genesis bolock adn transaction for the genesis account. 
+        /// </summary>
+        private static void Initialize()
+        {
+            var blocks = 
+
+            if (blocks.Count() < 1)
+            {
+                var gnsBlock = Block.Genesis();
+                blocks.Insert(gnsBlock);
+
+                CreateGenesisTransaction();
+            }
+        }
+
+        /// <summary>
+        /// Create transaction for genesis account.
+        /// </summary>
+        public static void CreateGenesisTransaction()
+        {
+            var newTrx = new Transaction()
+            {
+                TimeStamp = DateTime.Now.Ticks,
+                Sender = "system",
+                Recipient = "ga1",
+                Amount = 1000000,
+                Fee = 0
+            };
+
+            Transaction.AddToPool(newTrx);
+            
+            newTrx = new Transaction()
+            {
+                TimeStamp = DateTime.Now.Ticks,
+                Sender = "system",
+                Recipient = "ga2",
+                Amount = 2000000,
+                Fee = 0
+            };
+            Transaction.AddToPool(newTrx);
+            
+            var trxPool = Transaction.GetPool();
+            var transactions = trxPool.FindAll();
+            string tempTransactions = JsonConvert.SerializeObject(transactions);
+            var lastBlock = GetLastBlock();
+            var block = new Block(lastBlock, tempTransactions);
+            
+            AddBlock(block);
+            
+            foreach (Transaction trx in transactions)
+            {
+                Transaction.Add(trx);
+            }
+
+            // clear pool
+            trxPool.DeleteAll();
+        }
 
         /// <summary>
         /// Add a transaction to pool
