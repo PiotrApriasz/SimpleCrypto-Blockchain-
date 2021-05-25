@@ -22,7 +22,7 @@ namespace BlockchainLogic
         #region Methods
 
         /// <summary>
-        /// Create genesis block adn transaction for the genesis account. 
+        /// Create genesis block and transaction for the genesis account. 
         /// </summary>
         private static void Initialize()
         {
