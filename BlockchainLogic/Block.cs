@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
+using System.Text;
 using BlockchainLogic.Utils;
 
 namespace BlockchainLogic
@@ -16,36 +18,45 @@ namespace BlockchainLogic
         /// <summary>
         /// The time when the block was created
         /// </summary>
-        public Int64 TimeStamp { get; set; }
+        public long TimeStamp { get; set; }
         /// <summary>
         /// Hash of previous block
         /// </summary>
-        public byte[] PrevHash { get; set; }
+        public string PrevHash { get; set; }
         /// <summary>
         /// Unique Hash of the block
         /// </summary>
-        public byte[] Hash { get; set; }
+        public string Hash { get; set; }
         /// <summary>
         /// Collections of transactions that occur
         /// </summary>
-        public Transaction[] Transactions { get; set; }
+        public string Transactions { get; set; }
         /// <summary>
         /// Creator of block identified by the public key
         /// </summary>
-        public string Creator { get; set; }
+        //public string Creator { get; set; }
 
         #endregion
 
         #region Constructor
 
-        public Block(int height, byte[] prevHash, List<Transaction> transactions, string creator)
+        public Block(Block lastBlock, string transactions)
+        {
+            Height = lastBlock.Height + 1;
+            PrevHash = lastBlock.Hash;
+            TimeStamp = DateTime.Now.Ticks;
+            Transactions = transactions;
+            Hash = GetHash(TimeStamp, lastBlock.Hash, transactions);
+            //Creator = creator;    
+        }
+        
+        public Block(int height, long timestamp, string lastHash, string hash, string transactions)
         {
             Height = height;
-            PrevHash = prevHash;
-            TimeStamp = DateTime.Now.Ticks;
-            Transactions = transactions.ToArray();
-            Hash = GenerateHash();
-            Creator = creator;
+            TimeStamp = timestamp;
+            PrevHash = lastHash;
+            Hash = hash;
+            Transactions = transactions;
         }
 
         #endregion
@@ -53,6 +64,36 @@ namespace BlockchainLogic
         #region Methods
 
         /// <summary>
+        /// Create genesis block
+        /// </summary>
+        /// <returns></returns>
+        public static Block Genesis()
+        {
+            var ts = new DateTime(2021, 05, 25);
+            var genesisTrx = "Genesis Block created by Aether on 2021 05 25";
+            var hash = GetHash(ts.Ticks, "-", genesisTrx);
+            var block = new Block(1, ts.Ticks, 
+                Convert.ToBase64String(Encoding.ASCII.GetBytes("-")), hash, genesisTrx);
+            return block;
+        }
+        
+        /// <summary>
+        /// Generate hash of current block
+        /// </summary>
+        /// <param name="timestamp"></param>
+        /// <param name="lastHash"></param>
+        /// <param name="transactions"></param>
+        /// <returns></returns>
+        public static string GetHash(long timestamp, string lastHash, string transactions)
+        {
+            SHA256 sha256 = SHA256.Create();
+            var strSum = timestamp + lastHash + transactions;
+            byte[] sumBytes = Encoding.ASCII.GetBytes(strSum);
+            byte[] hashBytes = sha256.ComputeHash(sumBytes);
+            return Convert.ToBase64String(hashBytes);
+        }
+
+        /*/// <summary>
         /// Generate hash of current block
         /// </summary>
         /// <returns></returns>
@@ -71,7 +112,7 @@ namespace BlockchainLogic
             byte[] hash = sha.ComputeHash(headerBytes);
             
             return hash;
-        }
+        }*/
 
         #endregion
     }

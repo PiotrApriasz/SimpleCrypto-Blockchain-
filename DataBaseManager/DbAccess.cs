@@ -64,6 +64,12 @@ namespace DataBaseManager
             return entry;
         }
 
+        /// <summary>
+        /// Adding element to data base
+        /// </summary>
+        /// <param name="element">Element you want to add to data basse</param>
+        /// <param name="tableName">Selected table</param>
+        /// <typeparam name="T">Type of selected table</typeparam>
         public static void AddEntry<T>(T element, Tables tableName)
         {
             var entries = GetEntries<T>(tableName);
